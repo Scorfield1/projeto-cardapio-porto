@@ -2,37 +2,53 @@ import { Link } from "react-router";
 
 export default function CardProduct({ nome, descricao, preco, imagem, id }) {
   return (
-    <>
-      <Link to={`/detalhes/${id}`}>
-        <div className="bg-white p-4 rounded-2xl flex justify-between items-center shadow-sm border border-gray-100 active:scale-[0.98] transition-transform cursor-pointer">
-          {/* Texto do Prato */}
-          <div className="flex flex-col gap-1 flex-1 pr-4">
-            <h1 className="font-bold text-lg text-gray-800 leading-tight">
-              {nome}
-            </h1>
-            <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
-              {descricao}
-            </p>
-            <span className="font-bold text-orange-500 text-xl mt-2">
-              {new Intl.NumberFormat("pt-br", {
-                style: "currency",
-                currency: "BRL",
-              }).format(preco)}
-            </span>
+    <Link to={`/detalhes/${id}`}>
+      <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-gray-100 active:scale-95 transition-all duration-300 cursor-pointer group">
+        {/* Container com imagem e badge de preço */}
+        <div className="relative overflow-hidden h-48 bg-gradient-to-br from-amber-100 to-orange-100">
+          {imagem && (
+            <img
+              src={imagem}
+              alt={nome}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            />
+          )}
+
+          {/* Badge de Preço */}
+          <div className="absolute top-3 right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full font-bold shadow-lg">
+            {new Intl.NumberFormat("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            }).format(preco)}
           </div>
 
-          {/* Imagem do Prato */}
-          {imagem && (
-            <div className="w-24 h-24 flex-shrink-0">
-              <img
-                src={imagem}
-                alt={nome}
-                className="w-full h-full object-cover rounded-xl shadow-inner"
-              />
-            </div>
-          )}
+          {/* Overlay hover */}
+          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
         </div>
-      </Link>
-    </>
+
+        {/* Conteúdo */}
+        <div className="p-4 flex flex-col gap-2">
+          {/* Nome do Prato */}
+          <h1 className="font-bold text-lg text-gray-800 leading-tight group-hover:text-orange-600 transition-colors">
+            {nome}
+          </h1>
+
+          {/* Descrição */}
+          <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+            {descricao}
+          </p>
+
+          {/* Call to Action */}
+          <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-xs font-semibold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
+              📋 Ver detalhes
+            </span>
+            <span className="text-orange-500 font-bold text-lg group-hover:text-orange-600 transition-colors">
+              →
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 }

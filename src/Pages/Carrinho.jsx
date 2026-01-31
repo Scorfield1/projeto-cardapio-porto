@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../Contexto/CartProvider";
 import CardCarrinho from "../Components/CardCarrinho";
-import { FaShoppingBag } from "react-icons/fa";
+import { FaShoppingBag, FaTrash } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import { useNavigate } from "react-router";
 
@@ -49,7 +49,10 @@ export default function Carrinho() {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white">
+    <div className="flex flex-col gap-4 p-4 bg-white rounded-2xl shadow-md ">
+      <div>
+        <h1 className="text-2xl font-bold text-center">Itens do Carrinho 🛒</h1>
+      </div>
       {idsUnicos.map((id) => {
         const item = cart.find((i) => i.id === id);
 
@@ -74,12 +77,12 @@ export default function Carrinho() {
           currency: "BRL",
         }).format(valorTotal)}
       </div>
-      <div>
+      <div className="w-full flex justify-center">
         <button
-          className="bg-red-500 px-4 py-2 rounded-2xl"
+          className="bg-red-500 px-4 py-2 rounded-2xl text-white font-bold"
           onClick={clearCart}
         >
-          Limpar Carrinho
+          Limpar Carrinho <FaTrash className="inline ml-2" />
         </button>
       </div>
       <div>
